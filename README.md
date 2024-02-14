@@ -11,7 +11,7 @@ pkt2xml encrypt <file>.xml
 ```
 
 ### Decryption
-*(PKT to XMLK)*
+*(PKT to XML)*
 ```sh
 pkt2xml decrypt <file>.pkt
 ```
