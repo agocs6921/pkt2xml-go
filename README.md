@@ -27,3 +27,8 @@ To build for all platforms supported
 ```sh
 make
 ```
+
+## Known issues
+
+- Decrypting then re-encrypting the output doesn't result in the same file due to incorrect file size bytes
+- Doesn't check if the XML file is a valid Packet Tracer XML file
