@@ -1,15 +1,16 @@
 default: windows linux
 	@echo "Built for all"
 
+executable_name := pkt2xml
 flags := -ldflags "-s -w"
 
 windows:
 	@echo "Building for Windows"	
-	@GOOS=windows GOARCH=amd64 go build -o pkt2xml.exe $(flags) *.go
+	@GOOS=windows GOARCH=amd64 go build -o $(executable_name).exe $(flags) *.go
 
 linux:
 	@echo "Building for Linux"
-	@GOOS=linux GOARCH=amd64 go build -o pkt2xml $(flags) *.go
+	@GOOS=linux GOARCH=amd64 go build -o $(executable_name) $(flags) *.go
 
 clean:
-	rm -f pkt2xml pkt2xml.exe
+	rm -f $(executable_name) $(executable_name).exe
