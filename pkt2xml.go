@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/xml"
+	"errors"
 	"log"
 	"os"
 	"path"
@@ -9,6 +11,10 @@ import (
 
 	"github.com/urfave/cli/v2"
 )
+
+func isValidXML(value []byte) bool {
+	return xml.Unmarshal(value, new(any)) == nil
+}
 
 func main() {
 	decryptCommand := &cli.Command{
@@ -23,7 +29,7 @@ func main() {
 			}
 
 			out := strings.Split(path.Base(input_file_path), ".")
-			out[len(out)-1] = "xml"
+			out = append(out, "xml")
 			outfile := strings.Join(out, ".")
 
 			result, err := crypt.Decrypt(content)
@@ -52,8 +58,12 @@ func main() {
 				return err
 			}
 
+			if !isValidXML(content) {
+				return errors.New("not an XML file")
+			}
+
 			out := strings.Split(path.Base(input_file_path), ".")
-			out[len(out)-1] = "pkt"
+			out = append(out, "pkt")
 			outfile := strings.Join(out, ".")
 
 			result, err := crypt.Encrypt(content)
